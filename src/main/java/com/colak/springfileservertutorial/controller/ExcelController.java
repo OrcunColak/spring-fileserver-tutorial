@@ -5,7 +5,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +21,30 @@ import java.io.IOException;
 @RequestMapping("api/v1/excel")
 public class ExcelController {
 
-    private final ResourceLoader resourceLoader;
-
-
     // http://localhost:8080/api/v1/excel/download
+    // Downloads a sample.xlsx file
     @GetMapping("/download")
-    public ResponseEntity<byte[]> downloadExcel() throws IOException {
-        // Downloads a sample.xlsx file
+    public ResponseEntity<byte[]> download() throws IOException {
+        ByteArrayOutputStream stream = generateExcel();
+
+        // Set response headers
+        HttpHeaders headers = new HttpHeaders();
+        // File name
+        String filename = "sample.xlsx";
+        ContentDisposition contentDisposition = ContentDisposition
+                .builder("attachment")
+                .filename(filename)
+                .build();
+        headers.setContentDisposition(contentDisposition);
+        // File type
+        headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(stream.toByteArray());
+    }
+
+    private ByteArrayOutputStream generateExcel() throws IOException {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
         // Create a new Excel workbook and sheet
@@ -46,17 +63,6 @@ public class ExcelController {
             // Write the workbook to a ByteArrayOutputStream
             workbook.write(stream);
         }
-
-        // Set response headers
-        HttpHeaders headers = new HttpHeaders();
-        // File name
-        String filename = "sample.xlsx";
-        headers.setContentDispositionFormData("attachment", filename);
-        // File type
-        headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
-
-        return ResponseEntity.ok()
-                .headers(headers)
-                .body(stream.toByteArray());
+        return stream;
     }
 }
