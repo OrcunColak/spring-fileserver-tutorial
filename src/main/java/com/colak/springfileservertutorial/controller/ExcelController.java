@@ -5,7 +5,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,31 +18,14 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/csv")
-public class CSVController {
+@RequestMapping("api/v1/excel")
+public class ExcelController {
 
     private final ResourceLoader resourceLoader;
 
-    // http://localhost:8080/api/v1/csv/download-csv
-    @GetMapping(value = "download-csv")
-    ResponseEntity<Resource> downloadCsv() {
-        // Downloads a songs.csv file
-        HttpHeaders headers = new HttpHeaders();
-        // File name
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=songs.csv");
-        // File type
-        headers.setContentType(MediaType.parseMediaType("text/csv"));
 
-        Resource fileResource = resourceLoader.getResource("classpath:songs.csv");
-
-        return ResponseEntity
-                .ok()
-                .headers(headers)
-                .body(fileResource);
-    }
-
-    // http://localhost:8080/api/v1/csv/download-excel
-    @GetMapping("/download-excel")
+    // http://localhost:8080/api/v1/excel/download
+    @GetMapping("/download")
     public ResponseEntity<byte[]> downloadExcel() throws IOException {
         // Downloads a sample.xlsx file
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -68,7 +50,8 @@ public class CSVController {
         // Set response headers
         HttpHeaders headers = new HttpHeaders();
         // File name
-        headers.setContentDispositionFormData("attachment", "sample.xlsx");
+        String filename = "sample.xlsx";
+        headers.setContentDispositionFormData("attachment", filename);
         // File type
         headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
 
