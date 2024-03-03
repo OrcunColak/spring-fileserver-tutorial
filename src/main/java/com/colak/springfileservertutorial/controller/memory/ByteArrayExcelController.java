@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.controller;
+package com.colak.springfileservertutorial.controller.memory;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
@@ -18,8 +18,8 @@ import java.io.IOException;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/excel")
-public class ExcelController {
+@RequestMapping("api/v1/bytearrayexcel")
+public class ByteArrayExcelController {
 
     // http://localhost:8080/api/v1/excel/download
     // Downloads a sample.xlsx file

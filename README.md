@@ -1,7 +1,7 @@
 # Download CSV
 
 InputStreamResource is from  
-https://medium.com/@eremeykin/how-to-deal-with-hikaricp-connection-leaks-part-2-847a9629627f
+https://medium.com/@souravdas08/download-large-files-over-rest-http-api-aa6a00a050cf
 
 # Download Excel
 

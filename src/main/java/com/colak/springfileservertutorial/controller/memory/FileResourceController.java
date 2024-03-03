@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.controller;
+package com.colak.springfileservertutorial.controller.memory;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;

@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.controller;
+package com.colak.springfileservertutorial.controller.memory;
 
 import com.opencsv.ICSVWriter;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
@@ -22,8 +22,8 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("api/v1/csv")
-public class CsvController {
+@RequestMapping("api/v1/streamingresponsebody")
+public class StreamingResponseBodyController {
 
     public record Book(String title, String author, int year, double price) {
     }
