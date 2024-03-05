@@ -15,9 +15,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/inputstreamsource")
+
+@RequiredArgsConstructor
 public class InputStreamResourceController {
 
     private final ResourceLoader resourceLoader;

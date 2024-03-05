@@ -20,9 +20,10 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/streamingresponsebody")
+
+@RequiredArgsConstructor
 public class StreamingResponseBodyController {
 
     public record Book(String title, String author, int year, double price) {

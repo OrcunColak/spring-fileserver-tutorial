@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.controller.memory;
+package com.colak.springfileservertutorial.controller.memory.excel;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
@@ -16,32 +16,38 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/bytearrayexcel")
-public class ByteArrayExcelController {
 
-    // http://localhost:8080/api/v1/excel/download
+@RequiredArgsConstructor
+class ByteArrayExcelController {
+
+    // http://localhost:8080/api/v1/bytearrayexcel/download
     // Downloads a sample.xlsx file
     @GetMapping("/download")
     public ResponseEntity<byte[]> download() throws IOException {
         ByteArrayOutputStream stream = generateExcel();
 
-        // Set response headers
-        HttpHeaders headers = new HttpHeaders();
-        // File name
-        String filename = "sample.xlsx";
-        ContentDisposition contentDisposition = ContentDisposition
-                .builder("attachment")
-                .filename(filename)
-                .build();
-        headers.setContentDisposition(contentDisposition);
-        // File type
-        headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        HttpHeaders headers = getHttpHeaders();
 
         return ResponseEntity.ok()
                 .headers(headers)
                 .body(stream.toByteArray());
+    }
+
+    private HttpHeaders getHttpHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        // Content-Disposition has values for "attachment" and filename=..."
+
+        ContentDisposition contentDisposition = ContentDisposition
+                // This is an attachment
+                .builder("attachment")
+                .filename("sample.xlsx")
+                .build();
+        headers.setContentDisposition(contentDisposition);
+        // File type
+        headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        return headers;
     }
 
     private ByteArrayOutputStream generateExcel() throws IOException {
