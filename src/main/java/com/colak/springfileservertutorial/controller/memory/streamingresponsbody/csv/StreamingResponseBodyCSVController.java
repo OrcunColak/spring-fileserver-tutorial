@@ -1,10 +1,10 @@
-package com.colak.springfileservertutorial.controller.memory;
+package com.colak.springfileservertutorial.controller.memory.streamingresponsbody.csv;
 
 import com.opencsv.ICSVWriter;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import lombok.RequiredArgsConstructor;
+import jakarta.annotation.PostConstruct;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,15 +21,23 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/streamingresponsebody")
+@RequestMapping("api/v1/streamingresponsebodycsv")
 
-@RequiredArgsConstructor
-public class StreamingResponseBodyController {
+public class StreamingResponseBodyCSVController {
+    private List<Book> books;
 
     public record Book(String title, String author, int year, double price) {
     }
 
-    // http://localhost:8080/api/v1/csv/download
+    @PostConstruct
+    private void postConstruct() {
+        books = List.of(
+                new Book("book1", "author1", 2023, 10),
+                new Book("book2", "author2", 2024, 10)
+        );
+    }
+
+    // http://localhost:8080/api/v1/streamingresponsebodycsv/download
     @GetMapping("/download")
     public ResponseEntity<StreamingResponseBody> download() {
         StreamingResponseBody streamingResponseBody = getStreamingResponseBody();
@@ -41,15 +49,13 @@ public class StreamingResponseBodyController {
                 .body(streamingResponseBody);
     }
 
-    // StreamingResponseBody if for asynchronous request processing where the application can write directly to the
+    // StreamingResponseBody is for asynchronous request processing where the application can write directly to the
     // response OutputStream without holding up the Servlet container thread.
-    private static StreamingResponseBody getStreamingResponseBody() {
-        List<Book> books = List.of(
-                new Book("book1", "author1", 2023, 10),
-                new Book("book2", "author2", 2024, 10)
-        );
+    // If request is not  processed within the time-out duration Spring throws org.springframework.web.context.request.async.AsyncRequestTimeoutException
+    private StreamingResponseBody getStreamingResponseBody() {
         // Use lambda for writeTo() method of StreamingResponseBody
         return outputStream -> {
+            // Convert outputStream to Writer. Use Writer to write CSV
             try (Writer writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8)) {
                 try {
                     // Use the StatefulBeanToCsv to convert bean to string and write into the response.

@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.controller.streaming;
+package com.colak.springfileservertutorial.controller.streaming.inputstreamresource;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
