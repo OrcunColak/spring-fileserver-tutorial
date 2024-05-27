@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.controller.memory.excel;
+package com.colak.springfileservertutorial.download.controller.memory.excel;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;

@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.controller.memory.pdfzip;
+package com.colak.springfileservertutorial.download.controller.memory.pdfzip;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

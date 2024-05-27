@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.controller.memory.streamingresponsbody.json;
+package com.colak.springfileservertutorial.download.controller.memory.staticresource.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;

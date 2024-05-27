@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.controller.memory.pdfzip;
+package com.colak.springfileservertutorial.download.controller.memory.pdfzip;
 
 import com.github.javafaker.Faker;
 import lombok.experimental.UtilityClass;
