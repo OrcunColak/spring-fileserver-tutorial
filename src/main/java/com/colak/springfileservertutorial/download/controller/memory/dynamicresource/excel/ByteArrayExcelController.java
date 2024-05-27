@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.download.controller.memory.excel;
+package com.colak.springfileservertutorial.download.controller.memory.dynamicresource.excel;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+// Downloads a sample.xlsx file
 @RestController
 @RequestMapping("api/v1/bytearrayexcel")
 
@@ -23,7 +24,7 @@ import java.io.IOException;
 class ByteArrayExcelController {
 
     // http://localhost:8080/api/v1/bytearrayexcel/download
-    // Downloads a sample.xlsx file
+
     @GetMapping("/download")
     public ResponseEntity<byte[]> download() throws IOException {
         ByteArrayOutputStream stream = generateExcel();

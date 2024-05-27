@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.download.controller.memory.pdfzip;
+package com.colak.springfileservertutorial.download.controller.memory.dynamicresource.pdfzip;
 
 import lombok.Getter;
 import lombok.Setter;
