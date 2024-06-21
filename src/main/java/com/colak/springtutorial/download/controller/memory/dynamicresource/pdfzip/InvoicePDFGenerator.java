@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.download.controller.memory.dynamicresource.pdfzip;
+package com.colak.springtutorial.download.controller.memory.dynamicresource.pdfzip;
 
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;

@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.download.controller.memory.staticresource.csv;
+package com.colak.springtutorial.download.controller.memory.staticresource.streaming.csv;
 
 import com.opencsv.ICSVWriter;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;

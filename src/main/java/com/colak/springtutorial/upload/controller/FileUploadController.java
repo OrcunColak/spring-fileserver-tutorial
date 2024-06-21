@@ -1,4 +1,4 @@
-package com.colak.springfileservertutorial.upload.controller;
+package com.colak.springtutorial.upload.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
