@@ -2,6 +2,7 @@ package com.colak.springtutorial.download.controller.memory.dynamicresource.pdfz
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class ByteArrayPdfController {
 
             PDFGenerator pdfGenerator = new PDFGenerator();
             byte[] zipContent = pdfGenerator.generatePDFs(invoices);
-            return ResponseEntity.ok().header("Content-Disposition", "attachment; filename=invoices.zip")
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=invoices.zip")
                     .body(zipContent);
         } catch (IOException exception) {
             log.error("Exception : ", exception);

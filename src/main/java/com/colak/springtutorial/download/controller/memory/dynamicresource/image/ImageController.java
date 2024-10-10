@@ -25,7 +25,7 @@ public class ImageController {
         try {
             byte[] imageWithWatermark = imageService.addWatermark(filePath);
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Disposition", "attachment; filename=watermarked_image.jpg");
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=watermarked_image.jpg");
             return new ResponseEntity<>(imageWithWatermark, headers, HttpStatus.OK);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
