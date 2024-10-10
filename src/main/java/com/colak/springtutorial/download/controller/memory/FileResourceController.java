@@ -1,8 +1,8 @@
 package com.colak.springtutorial.download.controller.memory;
 
+import com.colak.springtutorial.service.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class FileResourceController {
 
-    private final ResourceLoader resourceLoader;
+    private final FileService fileService;
 
-    // http://localhost:8080/api/v1/file/download1
-    @GetMapping(value = "download1")
+    // http://localhost:8080/api/v1/file/download
+    @GetMapping(value = "download")
     ResponseEntity<Resource> downloadCsv() {
 
         HttpHeaders headers = new HttpHeaders();
@@ -32,7 +32,7 @@ public class FileResourceController {
         // File type
         headers.setContentType(MediaType.parseMediaType("text/csv"));
 
-        Resource fileResource = resourceLoader.getResource("classpath:songs.csv");
+        Resource fileResource = fileService.getResourceFromClassPath("songs.csv");
 
         return ResponseEntity
                 .ok()
