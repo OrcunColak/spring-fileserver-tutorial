@@ -1,7 +1,7 @@
-package com.colak.springtutorial.download.controller.memory;
+package com.colak.springtutorial.download.controller.memory.staticresource.file;
 
+import com.colak.springtutorial.service.FileService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -18,14 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 // files from the /static, /public, /resources, and /META-INF/resources directories on the classpath.
 // Ensure that files are placed in one of these directories to make them accessible to clients.
 @RequiredArgsConstructor
-public class FileResourceController2 {
+public class FileResourceController {
 
-    // Instead of using ResourceLoader use the file name
-    @Value("classpath:songs.csv")
-    private Resource fileResource;
+    private final FileService fileService;
 
-    // http://localhost:8080/api/v1/file/download2
-    @GetMapping(value = "download2")
+    // http://localhost:8080/api/v1/file/download
+    @GetMapping(value = "download")
     ResponseEntity<Resource> downloadCsv() {
 
         HttpHeaders headers = new HttpHeaders();
@@ -33,6 +31,8 @@ public class FileResourceController2 {
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=songs.csv");
         // File type
         headers.setContentType(MediaType.parseMediaType("text/csv"));
+
+        Resource fileResource = fileService.getResourceFromClassPath("songs.csv");
 
         return ResponseEntity
                 .ok()

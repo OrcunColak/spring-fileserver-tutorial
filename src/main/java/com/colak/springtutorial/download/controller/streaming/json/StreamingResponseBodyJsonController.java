@@ -1,4 +1,4 @@
-package com.colak.springtutorial.download.controller.memory.staticresource.streaming.json;
+package com.colak.springtutorial.download.controller.streaming.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;

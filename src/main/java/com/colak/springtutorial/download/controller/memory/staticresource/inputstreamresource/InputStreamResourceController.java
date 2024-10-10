@@ -1,4 +1,4 @@
-package com.colak.springtutorial.download.controller.streaming.inputstreamresource;
+package com.colak.springtutorial.download.controller.memory.staticresource.inputstreamresource;
 
 import com.colak.springtutorial.service.FileService;
 import com.colak.springtutorial.upload.controller.FileStorageException;
