@@ -33,7 +33,8 @@ public class FileUploadController {
             }
 
             String originalFilename = Objects.requireNonNull(file.getOriginalFilename());
-            Path filePath = directory.resolve(originalFilename);
+            String sanitizedFilename = sanitizeFileName(originalFilename);
+            Path filePath = directory.resolve(sanitizedFilename);
             log.info("File path: {}", filePath);
             Files.write(filePath, file.getBytes());
 
@@ -42,6 +43,10 @@ public class FileUploadController {
         } catch (IOException exception) {
             throw new FileStorageException("Failed to store file " + file.getOriginalFilename());
         }
+    }
+
+    private String sanitizeFileName(String fileName) {
+        return fileName.replaceAll("[^a-zA-Z0-9\\.\\-]", "_"); // Replaces dangerous characters with underscores
     }
 
     // // See https://blog.devops.dev/spring-boot-file-upload-download-delete-94982145bea0
