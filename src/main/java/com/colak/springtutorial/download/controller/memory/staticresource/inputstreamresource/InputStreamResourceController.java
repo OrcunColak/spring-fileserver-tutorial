@@ -1,7 +1,6 @@
 package com.colak.springtutorial.download.controller.memory.staticresource.inputstreamresource;
 
 import com.colak.springtutorial.service.FileService;
-import com.colak.springtutorial.upload.controller.FileStorageException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -65,7 +64,7 @@ public class InputStreamResourceController {
 
             Resource resource = new UrlResource(filePath.toUri());
             if (!resource.exists() || !resource.isReadable()) {
-                throw new FileStorageException("Could not read file: " + fileName);
+                throw new RuntimeException("Could not read file: " + fileName);
             }
 
             return ResponseEntity.ok()
@@ -73,7 +72,7 @@ public class InputStreamResourceController {
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                     .body(resource);
         } catch (IOException e) {
-            throw new FileStorageException("Failed to download file " + fileName, e);
+            throw new RuntimeException("Failed to download file " + fileName, e);
         }
     }
 }
